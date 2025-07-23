@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Analysis Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- ADD THIS LINE for Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container report-container">
+        <h1><i class="fa-solid fa-file-waveform"></i> Analysis Report</h1>
+        <div class="report-header">
+            <strong><i class="fa-solid fa-file"></i> Analyzed File:</strong><br> {{ item }}
+        </div>
+
+        <h2><i class="fa-solid fa-clipboard-check"></i> Security Verdict</h2>
+        {% if malicious > 0 %}
+            <p class="score malicious">{{ malicious }} / {{ total }} vendors flagged this file as malicious.</p>
+            <p class="verdict">Verdict: <i class="fa-solid fa-triangle-exclamation"></i> High Risk. Do not open this file.</p>
+        {% else %}
+            <p class="score safe">0 / {{ total }} vendors flagged this file as malicious.</p>
+            <p class="verdict">Verdict: <i class="fa-solid fa-circle-check"></i> Likely Safe.</p>
+        {% endif %}
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 2em 0;">
+        
+        <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Detailed Breakdown</h3>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li><i class="fa-solid fa-shield-virus" style="color:#ff4d4d; width: 20px;"></i> Malicious engines: {{ stats.malicious }}</li>
+            <li style="margin-top:0.5em;"><i class="fa-solid fa-shield-halved" style="color:#facc15; width: 20px;"></i> Suspicious engines: {{ stats.suspicious }}</li>
+            <li style="margin-top:0.5em;"><i class="fa-solid fa-shield-check" style="color:#0efda6; width: 20px;"></i> Harmless engines: {{ stats.harmless }}</li>
+        </ul>
+
+        <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Analyze another item</a>
+    </div>
+</body>
+</html>

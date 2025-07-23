@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- ADD THIS LINE for Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-shield-halved"></i> CyberGuard</h1>
+            <p>Advanced Threat Analysis for URLs and Files</p>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash" style="background-color: #ff4d4d; color: #fff;">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+
+        <div class="scan-tabs">
+            <div class="tab-link active" onclick="openTab(event, 'url-scan')"><i class="fa-solid fa-link"></i> Scan URL</div>
+            <div class="tab-link" onclick="openTab(event, 'file-scan')"><i class="fa-solid fa-file-arrow-up"></i> Scan File</div>
+        </div>
+
+        <!-- URL Scan Form -->
+        <div id="url-scan" class="scan-content active">
+            <form action="/analyze-url" method="post" onsubmit="showLoader()">
+                <div class="form-group">
+                    <input type="text" name="url_to_analyze" placeholder="e.g., https://www.example.com" required>
+                </div>
+                <button type="submit">Initiate Scan</button>
+            </form>
+        </div>
+
+        <!-- File Scan Form -->
+        <div id="file-scan" class="scan-content">
+            <form action="/analyze-file" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
+                <div class="form-group">
+                    <input type="file" name="file_to_analyze" required>
+                </div>
+                <button type="submit">Upload & Scan</button>
+            </form>
+        </div>
+
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, scancontent, tablinks;
+            scancontent = document.getElementsByClassName("scan-content");
+            for (i = 0; i < scancontent.length; i++) {
+                scancontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function showLoader() {
+            // Hide forms and show loader
+            document.getElementById('url-scan').style.display = 'none';
+            document.getElementById('file-scan').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

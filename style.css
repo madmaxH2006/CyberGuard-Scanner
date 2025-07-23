@@ -1,0 +1,184 @@
+/* static/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* --- Main Body and Background --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121828;
+    color: #e0e0e0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Prevents scrollbars from the background shapes */
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(14, 110, 253, 0.1), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.1), transparent 40%);
+}
+
+/* --- The Glassmorphism Container --- */
+.container {
+    max-width: 700px;
+    width: 90%;
+    padding: 2.5em;
+    background: rgba(30, 41, 59, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(15px); /* The frosted glass effect */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+    z-index: 10;
+}
+
+/* --- Header and Title --- */
+header h1 {
+    font-size: 2.8em;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.2em 0;
+    text-shadow: 0 0 10px rgba(14, 110, 253, 0.7);
+}
+header h1 i {
+    margin-right: 0.3em;
+    color: #0efda6; /* Neon green icon */
+}
+header p {
+    font-size: 1.1em;
+    color: #a0a0a0;
+    margin-bottom: 2em;
+}
+
+/* --- Tabs --- */
+.scan-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2em;
+}
+.tab-link {
+    flex: 1;
+    padding: 1em;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #a0a0a0;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.tab-link.active {
+    color: #ffffff;
+    border-bottom-color: #0efda6;
+}
+
+.scan-content { display: none; }
+.scan-content.active { display: block; }
+
+/* --- Forms (Inputs and Buttons) --- */
+input[type="text"], input[type="file"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+input[type="text"]:focus {
+    outline: none;
+    border-color: #0efda6;
+    box-shadow: 0 0 15px rgba(14, 253, 166, 0.5);
+}
+input::file-selector-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #121828;
+    padding: 0.8em 1.2em;
+    border: none;
+    border-radius: 8px;
+    background-color: #0efda6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+input::file-selector-button:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 1em;
+    background: linear-gradient(90deg, #0d6efd, #0efda6);
+    color: #121828;
+    font-weight: 600;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(14, 253, 166, 0.4);
+}
+
+/* --- "Radar" Loader --- */
+.loader {
+    display: none;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 40px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #0efda6, transparent),
+                radial-gradient(circle at 70% 70%, #0d6efd, transparent);
+    animation: radar-spin 2s linear infinite;
+}
+.loader::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(18, 24, 40, 0), rgba(18, 24, 40, 1));
+    transform-origin: left;
+    transform: skewY(-10deg);
+}
+@keyframes radar-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Report Page Specifics --- */
+.report-container { text-align: left; }
+.report-header {
+    word-wrap: break-word;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1em 1.5em;
+    border-radius: 10px;
+    border-left: 5px solid #0d6efd;
+    margin-bottom: 2em;
+    font-size: 1.1em;
+}
+.score { font-size: 2.2em; font-weight: 600; margin: 0.5em 0; }
+.malicious { color: #ff4d4d; text-shadow: 0 0 8px rgba(255, 77, 77, 0.7); }
+.safe { color: #0efda6; text-shadow: 0 0 8px rgba(14, 253, 166, 0.7); }
+.verdict { font-size: 1.2em; font-weight: 500; }
+
+.back-link {
+    display: inline-block;
+    margin-top: 2em;
+    color: #0efda6;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.back-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ffffff;
+}
